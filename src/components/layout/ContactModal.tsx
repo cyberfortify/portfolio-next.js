@@ -106,10 +106,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {/* Header */}
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">
-                Let's Connect
+                Let&apos;s Connect
               </h2>
               <p className="text-gray-600 dark:text-gray-300 mt-2">
-                We'll get back to you within 24 hours
+                We&apos;ll get back to you within 24 hours
               </p>
             </div>
 

@@ -24,7 +24,7 @@ export default function HeroIntro({ onOpenContact }: { onOpenContact: () => void
       {/* Hero Text */}
       <div className="z-10 -mt-20 sm:mt-0 space-y-4 max-w-[90%] sm:max-w-2xl">
         <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium flex flex-row items-center justify-center gap-2 sm:gap-3 flex-wrap">
-          I'm{" "}
+          I&rsquo;m{" "}
           <span className="inline-flex items-center gap-2">
             <Image
               src="/images/p1.jpg"

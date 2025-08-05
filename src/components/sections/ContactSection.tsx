@@ -1,12 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import clsx from 'clsx';
 
 export default function ContactSection() {
-  const { theme } = useTheme();
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -24,7 +22,7 @@ export default function ContactSection() {
         className="text-3xl sm:text-4xl md:text-5xl font-bold text-center dark:text-white"
       >
         Got Some Ideas?{' '}
-        <span className="text-primary">Let’s Connect</span>
+        <span className="text-primary">Let&rsquo;s Connect</span>
       </motion.h2>
 
       <motion.p
@@ -33,7 +31,7 @@ export default function ContactSection() {
         transition={{ delay: 0.4, duration: 0.6 }}
         className="text-sm sm:text-base md:text-lg text-center mt-4 text-gray-600 dark:text-gray-300"
       >
-        Have a brilliant idea you're itching to bring to life? Let's collaborate and make it happen!
+        Have a brilliant idea you&rsquo;re itching to bring to life? Let&rsquo;s collaborate and make it happen!
       </motion.p>
 
       {/* SVG Background Wires (dark mode only) */}

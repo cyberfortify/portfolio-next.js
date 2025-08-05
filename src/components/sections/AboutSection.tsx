@@ -11,7 +11,7 @@ const AboutSection = () => {
       {/* LEFT SIDE: Text Block - Wider (60%) */}
       <div className="w-full md:w-[70%] p-6 border-2 shadow-md rounded-3xl flex flex-col justify-between">
         <div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 mt-[1rem] sm:mt-[2.5rem]"><span className="text-gray-400">*</span><br />I'm your Full Stack Developer</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 mt-[1rem] sm:mt-[2.5rem]"><span className="text-gray-400">*</span><br />I&rsquo;m your Full Stack Developer</h2>
           <p className="text-gray-500 mb-6">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis libero illo totam
             provident aliquam rerum fugiat tempora in aspernatur consectetur vel ad sed, porro

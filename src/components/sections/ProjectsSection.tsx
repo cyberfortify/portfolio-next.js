@@ -70,7 +70,7 @@ export default function ProjectsSection() {
         </h2>
 
         <a
-          href="/projects"
+          href="/project"
           className="w-fit sm:w-[75%] bg-lime-400 text-black px-4 py-2 rounded-full text-sm font-semibold hover:bg-lime-300 transition"
         >
           Go to Projects Page

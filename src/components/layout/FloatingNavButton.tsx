@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TextScroll } from "@/components/ui/text-scroll";
@@ -51,9 +52,9 @@ export default function FloatingNavButton() {
             <div className="w-full max-w-7xl overflow-hidden py-10">
               <hr className="border-t border-black dark:border-gray-300" />
 
-              <TextScroll {...scrollProps("Turning ideas into reality.", "#projects", -10)} />
+              <TextScroll {...scrollProps("Turning ideas into reality.", "/project", -10)} />
               <TextScroll {...scrollProps("Scroll through the stories.", "#blogs", 10)} />
-              <TextScroll {...scrollProps("Who is Aditya?", "#about", -10)} />
+              <TextScroll {...scrollProps("Who is Aditya?", "/about", -10)} />
 
               <hr className="border-t border-black dark:border-gray-300" />
             </div>

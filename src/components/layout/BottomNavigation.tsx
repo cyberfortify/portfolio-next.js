@@ -19,17 +19,10 @@ export default function BottomNavigation() {
         Who is Aditya?
       </button>
       <Link
-        href="#"
+        href="/project"
         className="text-xs sm:text-sm md:text-base font-medium text-gray-400 hover:text-lime-500 transition"
       >
         My Projects
-      </Link>
-
-      <Link
-        href="#"
-        className="text-xs sm:text-sm md:text-base font-medium text-gray-400 hover:text-lime-500 transition"
-      >
-        My Designs
       </Link>
     </div>
   )

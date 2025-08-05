@@ -3,7 +3,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import type { ReactNode } from 'react'
 import { MenuProvider } from '@/components/context/MenuContext'
-import { ThemeProvider } from 'next-themes' // ✅ Theme provider import
+import { ThemeProvider } from 'next-themes'
+import FloatingMenuButton from '@/components/layout/FloatingNavButton'
+import BottomNavigation from '@/components/layout/BottomNavigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,6 +25,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <MenuProvider>
             {children}
+            {/* Floating components outside page flow */}
+            <FloatingMenuButton />
+            <BottomNavigation />
           </MenuProvider>
         </ThemeProvider>
       </body>

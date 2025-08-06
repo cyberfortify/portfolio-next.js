@@ -114,6 +114,7 @@ export default function SkillsStack() {
               alt="Tech"
               fill
               className="object-contain dark:hidden"
+              sizes="40px"
             />
 
             {/* Dark Mode Icon */}
@@ -122,6 +123,7 @@ export default function SkillsStack() {
               alt="Tech Dark"
               fill
               className="object-contain hidden dark:block"
+               sizes="40px"
             />
           </motion.div>
         ))}
@@ -146,7 +148,7 @@ export default function SkillsStack() {
             variants={itemVariants}
             className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 relative z-20"
           >
-            <Image src={src} alt="Tool" fill className="object-contain" />
+            <Image src={src} alt="Tool" fill className="object-contain"  sizes="32px" />
           </motion.div>
         ))}
       </motion.div>

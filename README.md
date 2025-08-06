@@ -67,5 +67,3 @@ The app is deployed on Vercel and automatically deployed on push to the main bra
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-Feel free to adjust boilerplate details such as repository URL, license, or technologies to better fit your project specifics. If you'd like, I can help customize README further with sections like screenshots, contribution guidelines, or FAQs. Just ask!

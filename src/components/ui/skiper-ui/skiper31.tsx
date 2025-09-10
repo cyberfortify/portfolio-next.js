@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import ReactLenis from "lenis/react";
 import React, { useRef } from "react";
+import { MotionValue } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -10,7 +11,7 @@ type CharacterProps = {
   char: string;
   index: number;
   centerIndex: number;
-  scrollYProgress: any;
+  scrollYProgress: MotionValue<number>;
 };
 
 const CharacterV2 = ({

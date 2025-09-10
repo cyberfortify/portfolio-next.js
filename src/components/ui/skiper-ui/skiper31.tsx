@@ -26,36 +26,45 @@ const CharacterV2 = ({
   const x = useTransform(
     scrollYProgress,
     [0, 0.5],
+    [distanceFromCenter * 90, 0],
+  );
+   const rotate = useTransform(
+    scrollYProgress,
+    [0, 0.5],
     [distanceFromCenter * 50, 0],
   );
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.75, 1]);
 
   const y = useTransform(
     scrollYProgress,
     [0, 0.5],
-    [Math.abs(distanceFromCenter) * 50, 0],
+    [-Math.abs(distanceFromCenter) * 20, 0],
   );
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.75, 1]);
 
   return (
     <motion.img
       src={char}
       className={cn("inline-block", isSpace && "w-4")}
       style={{
-        x,
-        scale,
+       x,
+        rotate,
         y,
+        scale,
         transformOrigin: "center",
       }}
     />
   );
 };
 
+
 const Skiper31 = () => {
   const targetRef2 = useRef<HTMLDivElement | null>(null);
+
 
   const { scrollYProgress: scrollYProgress2 } = useScroll({
     target: targetRef2,
   });
+
 
   const macIcon = [
     "/mac/Discord.png",
@@ -78,12 +87,12 @@ const Skiper31 = () => {
           ref={targetRef2}
           className="relative box-border flex h-[210vh] flex-col items-center justify-center gap-[2vw] overflow-hidden p-[2vw]"
         >
-          <p className="font-geist flex items-center justify-center gap-3 text-2xl font-medium tracking-tight text-black">
-            <Bracket className="h-12 text-black" />
+          <p className="font-geist flex items-center justify-center gap-3 text-2xl font-medium tracking-tight ">
+            <Bracket className="h-12 " />
             <span className="font-geist font-medium">Fav Tech Stack</span>
-            <Bracket className="h-12 scale-x-[-1] text-black" />
+            <Bracket className="h-12 scale-x-[-1]" />
           </p>
-          <div className="font-geist w-full max-w-4xl text-center text-6xl font-bold uppercase tracking-tighter text-black">
+          <div className="font-geist w-full max-w-4xl text-center text-6xl font-bold uppercase tracking-tighter">
             {macIcon.map((char, index) => (
               <CharacterV2
                 key={index}
@@ -95,6 +104,9 @@ const Skiper31 = () => {
             ))}
           </div>
         </div>
+
+          
+
       </main>
     </ReactLenis>
   );

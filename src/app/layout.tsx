@@ -1,3 +1,4 @@
+// app/layout.tsx
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -16,18 +17,27 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: ReactNode
+  showFloatingComponents?: boolean
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({
+  children,
+  showFloatingComponents = true,
+}: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <MenuProvider>
             {children}
-            {/* Floating components outside page flow */}
-            <FloatingMenuButton />
-            <BottomNavigation />
+
+            {/* Floating buttons only when showFloatingComponents=true */}
+            {showFloatingComponents && (
+              <>
+                <FloatingMenuButton />
+                <BottomNavigation />
+              </>
+            )}
           </MenuProvider>
         </ThemeProvider>
       </body>

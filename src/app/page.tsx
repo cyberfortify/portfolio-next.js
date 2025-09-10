@@ -1,32 +1,40 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import WelcomeFlicker from "@/components/sections/WelcomeFlicker"
-import HeroIntro from "@/components/sections/HeroIntro"
-import FloatingMenuButton from "@/components/layout/FloatingNavButton"
-import BottomNavigation from "@/components/layout/BottomNavigation"
-import ContactModal from "@/components/layout/ContactModal"
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import Preloader from "@/components/layout/Preloader"; // New preloader
+import HeroIntro from "@/components/sections/HeroIntro";
 import AboutSection from "@/components/sections/AboutSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
-import SkillsStack from "@/components/sections/SkillsStack"
-import ContactSection from "@/components/sections/ContactSection"
+import { Skiper31 } from "@/components/ui/skiper-ui/skiper31";
+// import SkillsStack from "@/components/sections/SkillsStack";
+import ContactSection from "@/components/sections/ContactSection";
+import FloatingMenuButton from "@/components/layout/FloatingNavButton";
+import BottomNavigation from "@/components/layout/BottomNavigation";
+import ContactModal from "@/components/layout/ContactModal";
 
 export default function HomePage() {
-  const [showHero, setShowHero] = useState(false)
-  const [isContactOpen, setIsContactOpen] = useState(false)
+  const [showHero, setShowHero] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   return (
     <>
-      {!showHero && <WelcomeFlicker onComplete={() => setShowHero(true)} />}
+      {/* Preloader */}
+      <AnimatePresence mode="wait">
+        {!showHero && <Preloader onComplete={() => setShowHero(true)} />}
+      </AnimatePresence>
 
+      {/* Main Page Content */}
       {showHero && (
         <>
-          {/* Hero Section + Button */}
           <HeroIntro onOpenContact={() => setIsContactOpen(true)} />
           <AboutSection />
           <ProjectsSection />
-          <SkillsStack/>
-          <ContactSection/>
+          <Skiper31 />
+          {/* <SkillsStack /> */}
+          <ContactSection />
+
+          {/* Floating Buttons (appear only after preloader) */}
           <FloatingMenuButton />
           <BottomNavigation />
 
@@ -38,5 +46,5 @@ export default function HomePage() {
         </>
       )}
     </>
-  )
+  );
 }

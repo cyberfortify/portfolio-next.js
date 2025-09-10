@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TextScroll } from "@/components/ui/text-scroll";
 import { useMenu } from "@/components/context/MenuContext";
+import { Skiper58 } from "@/components/ui/skiper-ui/skiper58";
 import {
   FaLinkedinIn,
   FaGithub,
@@ -23,14 +24,13 @@ export default function FloatingNavButton() {
     href,
     velocity,
     scrollOnHover: !isTouchDevice,
-    className: `text-[5rem] font-bold text-gray-800 dark:text-gray-100 hover:bg-yellow-400 ${
-      isTouchDevice ? "animate-scroll" : ""
-    }`,
+    className: `text-[5rem] font-bold text-gray-800 dark:text-gray-100 hover:bg-yellow-400 ${isTouchDevice ? "animate-scroll" : ""
+      }`,
   });
 
   // Social links array
   const socialLinks = [
-    { icon: <FaLinkedinIn />, url: "https://linkedin.com/in/aditya-vk-professional" },
+    { icon: <FaLinkedinIn />, url: "https://linkedin.com/in/imadityavk" },
     { icon: <FaGithub />, url: "https://github.com/cyberfortify" },
     { icon: <FaInstagram />, url: "https://instagram.com/imadityavkx" },
     { icon: <FaTwitter />, url: "https://twitter.com/imadityvkx" }, // Example, add/remove as needed
@@ -55,38 +55,21 @@ export default function FloatingNavButton() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
             className="fixed inset-0 bg-white dark:bg-black z-40 flex flex-col justify-center items-center"
           >
-            {/* Close Button inside menu (optional, you can style or remove) */}
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-3xl font-bold text-gray-700 dark:text-gray-300"
-              aria-label="Close menu"
-            >
-              ×
-            </button>
+            {/* Navigation Items (New Skiper58) */}
+            <Skiper58 />
 
-            {/* Menu Scroll Items */}
-            <div className="w-full max-w-7xl overflow-hidden py-10">
-              <hr className="border-t border-black dark:border-gray-300" />
-
-              <TextScroll {...scrollProps("Turning ideas into reality.", "/project", -10)} />
-              <TextScroll {...scrollProps("Scroll through the stories.", "https://www.instagram.com/imadityvkx", 10)} />
-              <TextScroll {...scrollProps("Who is Aditya?", "/about", -10)} />
-
-              <hr className="border-t border-black dark:border-gray-300" />
-            </div>
-
-            {/* Social Media Icons at Bottom */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
-              {socialLinks.map(({ icon, url }, idx) => (
+            {/* Social Media Icons */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-6">
+              {socialLinks.map(({ icon, url }, i) => (
                 <a
-                  key={idx}
+                  key={i}
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-800 dark:text-gray-100 hover:text-yellow-400 transition text-2xl"
-                  aria-label={`Link to social profile`}
+                  className="text-gray-800 dark:text-gray-100 hover:text-yellow-400 text-2xl transition"
                 >
                   {icon}
                 </a>
@@ -95,6 +78,7 @@ export default function FloatingNavButton() {
           </motion.div>
         )}
       </AnimatePresence>
+
     </>
   );
 }

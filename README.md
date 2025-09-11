@@ -1,69 +1,109 @@
-# Personal Portfolio Website
+# Portfolio Website
 
-Welcome to my personal portfolio repository! This project showcases my work, skills, and experiences as a developer and designer. It is built using modern technologies with a focus on elegant UI, performance, and responsiveness.
+A modern, responsive, and interactive **portfolio website** built with **Next.js**, **Tailwind CSS**, and **Framer Motion**. This website showcases projects, skills, and contact information with smooth animations and a floating navigation menu.
 
-## Live Demo
 
-Check out the live website here: [https://imadityavk.vercel.app/](https://imadityavk.vercel.app/)
 
 ## Features
 
-- Responsive design adapted for mobile, tablet, and desktop screens
-- Interactive UI with animations powered by Framer Motion
-- Showcases projects, skills, and professional background
-- Light and dark mode support
-- Contact form with EmailJS integration for direct messages
-- Social links and Github integration
-- Technologies stack icons with animated interaction
+* **Responsive Design:** Works on desktop, tablet, and mobile devices.
+* **Animated Floating Navigation:** Toggle button opens a full-screen animated menu.
+* **Skiper-Style Text Animation:** Unique hover text animations for menu items.
+* **Project Showcase:** Interactive stacked project cards with animated transitions.
+* **Social Media Links:** Easily accessible social media icons.
+* **Dark Mode Support:** Fully compatible with light and dark themes.
+
 
 ## Technologies Used
 
-- React & Next.js
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- EmailJS (contact form)
-- React Icons
-- Other utilities & libraries
+* **Framework:** [Next.js](https://nextjs.org/)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **Animations:** [Framer Motion](https://www.framer.com/motion/)
+* **Icons:** [React Icons](https://react-icons.github.io/react-icons/)
+* **Version Control:** Git & GitHub
+
+
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v14+)
-- Yarn or npm
+* Node.js v18+
+* npm or yarn
 
 ### Installation
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/cyberfortify/portfolio-next.js.git
-   cd portfolio-next.js
-   ```
+```bash
+git clone https://github.com/cyberfortify/portfolio-next.js.git
+cd portfolio-next.js
+```
 
 2. Install dependencies:
 
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+```bash
+npm install
+# or
+yarn install
+```
 
 3. Run the development server:
 
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+
+
+## Folder Structure
+
+```
+portfolio/
+├─ src/
+│  ├─ app/                 # Next.js app directory
+│  ├─ components/          # Reusable components
+│  │  ├─ ui/               # UI components like Skiper58, TextRoll, MaskedDiv
+│  ├─ styles/              # Global styles
+├─ public/                 # Static assets (images, icons)
+├─ package.json
+└─ README.md
+```
+
+
 
 ## Deployment
 
-The app is deployed on Vercel and automatically deployed on push to the main branch.
+You can deploy this project easily on **Vercel**:
+
+```bash
+vercel
+```
+
+Or connect your GitHub repo directly to [Vercel](https://vercel.com/) for continuous deployment.
+
+
+## Contributing
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/YourFeature`)
+3. Make your changes and commit (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
+
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is **MIT licensed**.
+
+
+## Contact
+
+* **Name:** Aditya Vishwakarma
+* **Email:** [work.aditya2010@gmail.com](mailto:work.aditya2010@gmail.com)
+* **LinkedIn:** [linkedin.com/in/imadityavk](https://linkedin.com/in/imadityavk)
+* **GitHub:** [github.com/cyberfortify](https://github.com/cyberfortify)

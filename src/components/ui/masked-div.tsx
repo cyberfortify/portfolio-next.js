@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef } from "react"
+import { motion } from "framer-motion"
 
 type MaskType = "type-1" | "type-2" | "type-3" | "type-4"
 
@@ -16,6 +17,7 @@ interface MaskedDivProps {
   className?: string
   backgroundColor?: string
   size?: number
+  floating?: boolean // 👈 new prop for floating effect
 }
 
 const svgPaths: Record<MaskType, SvgPath> = {
@@ -47,9 +49,11 @@ const MaskedDiv: React.FC<MaskedDivProps> = ({
   className = "",
   backgroundColor = "transparent",
   size = 1,
+  floating = false,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
+  // ✅ Video autoplay/pause logic
   useEffect(() => {
     const handleVisibilityChange = () => {
       const videoElement = videoRef.current
@@ -58,19 +62,15 @@ const MaskedDiv: React.FC<MaskedDivProps> = ({
       if (document.hidden) {
         videoElement.pause()
       } else {
-        // Only play if the video should be playing
         const playPromise = videoElement.play()
         if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // Auto-play was prevented, handle this case silently
-          })
+          playPromise.catch(() => {})
         }
       }
     }
 
     document.addEventListener("visibilitychange", handleVisibilityChange)
 
-    // Intersection Observer for viewport visibility
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -78,30 +78,21 @@ const MaskedDiv: React.FC<MaskedDivProps> = ({
           if (entry.isIntersecting) {
             const playPromise = videoElement.play()
             if (playPromise !== undefined) {
-              playPromise.catch(() => {
-                // Handle auto-play prevention silently
-              })
+              playPromise.catch(() => {})
             }
           } else {
             videoElement.pause()
           }
         })
       },
-      {
-        threshold: 0.1, // Start playing when 10% of the video is visible
-      }
+      { threshold: 0.1 }
     )
 
-    if (videoRef.current) {
-      observer.observe(videoRef.current)
-    }
+    if (videoRef.current) observer.observe(videoRef.current)
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange)
-      if (videoRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        observer.unobserve(videoRef.current)
-      }
+      if (videoRef.current) observer.unobserve(videoRef.current)
     }
   }, [])
 
@@ -123,15 +114,33 @@ const MaskedDiv: React.FC<MaskedDivProps> = ({
     margin: "0 auto",
   }
 
-  return (
-    <section className={`relative ${className}`} style={containerStyle}>
+  const Content = (
+    <section
+      className={`relative ${className}`}
+      style={containerStyle}
+    >
       {React.cloneElement(children, {
-        className: `w-full h-full object-cover hover:scale-105 transition-all duration-300 ${
-          children.props.className || ""
-        }`,
+        className: `w-full h-full object-cover transition-all duration-500 ${children.props.className || ""}`,
       })}
     </section>
   )
+
+  // ✅ Floating effect wrapper
+  if (floating) {
+    return (
+      <motion.div
+        initial={{ y: 0 }}
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        whileHover={{ scale: 1.05, boxShadow: "0px 20px 40px rgba(0,0,0,0.3)" }}
+        className="inline-block"
+      >
+        {Content}
+      </motion.div>
+    )
+  }
+
+  return Content
 }
 
 export default MaskedDiv

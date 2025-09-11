@@ -1,15 +1,10 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TextScroll } from "@/components/ui/text-scroll";
 import { useMenu } from "@/components/context/MenuContext";
 import { Skiper58 } from "@/components/ui/skiper-ui/skiper58";
-import {
-  FaLinkedinIn,
-  FaGithub,
-  FaInstagram,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaLinkedinIn, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 
 export default function FloatingNavButton() {
   const { isOpen, setIsOpen } = useMenu();
@@ -19,21 +14,11 @@ export default function FloatingNavButton() {
     setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
   }, []);
 
-  const scrollProps = (text: string, href: string, velocity: number) => ({
-    text,
-    href,
-    velocity,
-    scrollOnHover: !isTouchDevice,
-    className: `text-[5rem] font-bold text-gray-800 dark:text-gray-100 hover:bg-yellow-400 ${isTouchDevice ? "animate-scroll" : ""
-      }`,
-  });
-
-  // Social links array
   const socialLinks = [
     { icon: <FaLinkedinIn />, url: "https://linkedin.com/in/imadityavk" },
     { icon: <FaGithub />, url: "https://github.com/cyberfortify" },
     { icon: <FaInstagram />, url: "https://instagram.com/imadityavkx" },
-    { icon: <FaTwitter />, url: "https://twitter.com/imadityvkx" }, // Example, add/remove as needed
+    { icon: <FaTwitter />, url: "https://twitter.com/imadityvkx" },
   ];
 
   return (
@@ -49,6 +34,7 @@ export default function FloatingNavButton() {
         </button>
       </div>
 
+      {/* Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -58,8 +44,8 @@ export default function FloatingNavButton() {
             transition={{ duration: 0.5 }}
             className="fixed inset-0 bg-white dark:bg-black z-40 flex flex-col justify-center items-center"
           >
-            {/* Navigation Items (New Skiper58) */}
-            <Skiper58 />
+            {/* Navigation Items */}
+            <Skiper58 onItemClick={() => setIsOpen(false)} />
 
             {/* Social Media Icons */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-6">
@@ -78,7 +64,6 @@ export default function FloatingNavButton() {
           </motion.div>
         )}
       </AnimatePresence>
-
     </>
   );
 }

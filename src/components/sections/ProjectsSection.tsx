@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const projects = [
@@ -8,74 +8,119 @@ const projects = [
     title: "Emp Report System :: Python",
     image: "/projects/era.png",
     description:
-      "A Streamlit web application that allows you to upload an Excel sheet of employee work data and instantly generate",
+      "A Streamlit web application that allows you to upload an Excel sheet of employee work data and instantly generate reports and analytics.",
     link: "https://employee-report-app.streamlit.app/",
   },
   {
     title: "3D Website :: Vanilla",
     image: "/projects/3d.png",
     description:
-      "A fully responsive 3D scroll animation website built with Three.js, GSAP, Locomotive Scroll, and Tailwind CSS, inspired by modern product landing pages. Experience smooth transitions and interactive 3D elements.",
+      "A fully responsive 3D scroll animation website built with Three.js, GSAP, Locomotive Scroll and Tailwind CSS. Smooth transitions and interactive 3D elements.",
     link: "https://3d-website-animation.vercel.app/",
   },
   {
     title: "Video Analysis :: Data Analysis",
     image: "/projects/yt-trending.png",
     description:
-      "A data-driven exploration of trending video behavior across India 🇮🇳 and the USA 🇺🇸, uncovering what makes videos trend, how fast they trend, and what factors influence visibility on YouTube.",
+      "A data-driven exploration of trending video behavior across India and the USA, uncovering what makes videos trend and how fast they do.",
     link: "https://github.com/cyberfortify/Youtube_Trending_Video_Analysis",
   },
 ];
 
 export default function ProjectsSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const cardRef = useRef<HTMLDivElement | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
-    if (!cardRef.current) return;
+    const total = projects.length;
+    // --- tweak yaha se offsets & scale agar tumko alag look chahiye ---
+    const peekX = 36; // each stacked card shifts this many px to right
+    const peekY = 28; // each stacked card shifts this many px upward (negative Y)
+    const peekScaleBase = 0.88; // front-most peek card scale (smaller overall)
+    const scaleStep = 0.03; // how much each deeper card shrinks
+    // -------------------------------------------------------------------
 
-    const el = cardRef.current;
-    // Reset position
-    gsap.fromTo(
-      el,
-      { opacity: 0, y: 50, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out" }
-    );
+    // compute peek transforms for each card (static stack order)
+    const transforms = projects.map((_, i) => {
+      const stackPos = total - 1 - i; // last array item will be closest to front in stack
+      const x = stackPos * peekX;
+      const y = -stackPos * peekY;
+      const scale = Math.max(0.6, peekScaleBase - stackPos * scaleStep);
+      const z = 20 + stackPos; // z-index base for peek cards
+      return { x, y, scale, z };
+    });
+
+    // first set all cards to their peek state (so they appear layered)
+    cardRefs.current.forEach((c, i) => {
+      if (!c) return;
+      const { x, y, scale, z } = transforms[i];
+      gsap.set(c, { x, y, scale, opacity: i === activeIndex ? 1 : 0.85, zIndex: i === activeIndex ? 200 : z });
+    });
+
+    // animate the active card to center / front
+    const activeEl = cardRefs.current[activeIndex];
+    if (activeEl) {
+      // animate from slightly above-right into center for a 'coming down' effect
+      gsap.fromTo(
+        activeEl,
+        { x: 200, y: -200, scale: 0.9, opacity: 0, zIndex: 400 },
+        { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "power3.out", zIndex: 400 }
+      );
+    }
+
+    // animate other cards back to their peek positions
+    cardRefs.current.forEach((c, i) => {
+      if (!c || i === activeIndex) return;
+      const { x, y, scale, z } = transforms[i];
+      gsap.to(c, { x, y, scale, opacity: 0.85, zIndex: z, duration: 0.6, ease: "power3.out" });
+    });
   }, [activeIndex]);
 
   return (
-    <section className="flex flex-col md:flex-row justify-center items-stretch px-4 sm:px-6 md:px-20 py-12 md:py-20 gap-10">
+    <section className="flex flex-col md:flex-row justify-center items-stretch mt-8 px-4 sm:px-6 md:px-20 py-12 md:py-20 gap-10">
+      {/* LEFT SIDE */}
+      <div className="w-full md:w-[70%] flex flex-col gap-6">
+        {/* Card stack */}
+        <div className="relative w-full aspect-[16/9] sm:aspect-[4/3] md:aspect-[16/9]">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              ref={(el: HTMLDivElement | null) => {
+                cardRefs.current[index] = el; // ✅ TypeScript-friendly
+              }}
+              className="absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-white/5 backdrop-blur-md"
+              style={{ willChange: "transform, opacity" }}
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover rounded-2xl"
+              />
+            </div>
+          ))}
 
-      {/* LEFT SIDE: Animated Card */}
-      <div className="w-full md:w-[70%] h-[500px] flex flex-col gap-4">
-        <div
-          ref={cardRef}
-          className="relative h-[250px] sm:h-[300px] md:h-[335px] w-full rounded-2xl overflow-hidden shadow-lg"
-        >
-          <img
-            src={projects[activeIndex].image}
-            alt={projects[activeIndex].title}
-            className="h-full w-full object-cover rounded-2xl"
-          />
         </div>
 
         {/* Description */}
-        <div className="p-4 sm:p-5 rounded-xl text-sm sm:text-base leading-relaxed">
-          {projects[activeIndex].description}
-          <a
-            href={projects[activeIndex].link}
-            target="_blank"
-            className="text-blue-400 font-semibold hover:underline ml-1"
-          >
-            click to See Live Demo
-          </a>
+        <div className="mt-6 p-4 sm:p-6 rounded-xl text-sm sm:text-base md:text-lg leading-relaxed bg-white/5 backdrop-blur-md shadow-md">
+          <p className="text-gray-500">
+            {projects[activeIndex].description}{" "}
+            <a
+              href={projects[activeIndex].link}
+              target="_blank"
+              rel="noreferrer"
+              className="text-lime-500 font-semibold hover:underline ml-1"
+            >
+              See Live Demo
+            </a>
+          </p>
         </div>
       </div>
 
-      {/* RIGHT SIDE: Project List */}
-      <div className="w-full md:w-[30%] flex flex-col justify-center">
+      {/* RIGHT SIDE */}
+      <div className="w-full md:w-[30%] flex flex-col justify-start mt-10 md:mt-0">
         <h2 className="text-3xl sm:text-4xl md:text-[3rem] leading-none mb-6 sm:mb-7">
-          <span className="text-gray-400">*</span><br /> SOME <br />
+          <span className="text-gray-400">*</span> <br /> SOME <br />
           FEATURED <br />
           <span className="font-bold">PROJECTS</span>
         </h2>
@@ -92,11 +137,8 @@ export default function ProjectsSection() {
             <li
               key={index}
               onClick={() => setActiveIndex(index)}
-              className={`cursor-pointer transition ${
-                activeIndex === index
-                  ? "text-lime-400 font-semibold"
-                  : "text-gray-500 hover:text-lime-300"
-              }`}
+              className={`cursor-pointer transition ${activeIndex === index ? "text-lime-400 font-semibold" : "text-gray-500 hover:text-lime-300"
+                }`}
             >
               {project.title}
             </li>
@@ -104,5 +146,6 @@ export default function ProjectsSection() {
         </ul>
       </div>
     </section>
+
   );
 }

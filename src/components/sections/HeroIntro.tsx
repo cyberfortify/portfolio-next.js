@@ -22,30 +22,32 @@ export default function HeroIntro({ onOpenContact }: { onOpenContact: () => void
       </div>
 
       {/* Hero Text */}
-      <div className="z-10 -mt-20 sm:mt-0 space-y-4 max-w-[90%] sm:max-w-2xl">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium flex flex-row items-center justify-center gap-2 sm:gap-3 flex-wrap">
+      <div className="z-10 -mt-20 sm:mt-0 space-y-4 w-full text-center">
+        <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-5xl flex flex-row items-center justify-center gap-4 sm:gap-6 font-extralight flex-wrap">
           I&rsquo;m{" "}
-          <span className="inline-flex items-center gap-2">
+          <span className="inline-flex items-center gap-4 sm:gap-6">
             <Image
-              src="/images/p1.jpg"
+              src="/images/heroSection1.jpg"
               alt="Aditya's avatar"
-              width={40}
-              height={40}
-              className="rounded-full object-cover w-13 h-8 sm:w-13 sm:h-8"
+              width={400}   // bada rakho
+              height={300}  // bada rakho
+              className="rounded-full object-cover w-16 h-10 sm:w-24 sm:h-14 md:w-32 md:h-20 lg:w-40 lg:h-24"
             />
-            <span className="capitalize text-base sm:text-lg md:text-xl font-semibold">
-              Aditya
+            <span className="text-lg sm:text-2xl md:text-3xl lg:text-5xl font-extralight">
+              aditya
             </span>
           </span>
         </h2>
 
-        <h1 className="-mt-4 text-3xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight">
+
+        <h1 className="-mt-4 text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold tracking-tight leading-tight">
           Bringing Ideas to Reality
         </h1>
       </div>
 
+
       {/* Background Faded Text */}
-      <h1 className="absolute text-[25vw] sm:text-[18vw] md:text-[14vw] font-black text-gray-100 opacity-10 z-0 select-none whitespace-nowrap pointer-events-none">
+      <h1 className="absolute text-[25vw] sm:text-[18vw] md:text-[14vw] font-black text-gray-100 opacity-5 z-0 select-none whitespace-nowrap pointer-events-none">
         Aditya
       </h1>
     </motion.section>

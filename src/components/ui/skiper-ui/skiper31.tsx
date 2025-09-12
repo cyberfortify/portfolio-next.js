@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import ReactLenis from "lenis/react";
 import React, { useRef, useState } from "react";
-import { MotionValue } from "framer-motion";
+import { MotionValue , MotionStyle} from "framer-motion";
 
 import { cn } from "@/lib/utils";
 

@@ -42,7 +42,7 @@ const CharacterV2 = ({
   return (
     <motion.div
       className={cn("inline-block relative px-3 select-none")}
-      style={{ x, rotate, y, scale: baseScale, transformOrigin: "center" } as any}
+      style={{ x, rotate, y, scale: baseScale, transformOrigin: "center" } as MotionStyle}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
     >

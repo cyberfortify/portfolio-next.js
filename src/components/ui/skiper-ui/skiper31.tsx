@@ -2,13 +2,13 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import ReactLenis from "lenis/react";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { MotionValue } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
 type CharacterProps = {
-  char: string;
+  char: string; // image path
   index: number;
   centerIndex: number;
   scrollYProgress: MotionValue<number>;
@@ -23,48 +23,71 @@ const CharacterV2 = ({
   const isSpace = char === " ";
   const distanceFromCenter = index - centerIndex;
 
-  const x = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    [distanceFromCenter * 90, 0],
-  );
-   const rotate = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    [distanceFromCenter * 50, 0],
-  );
+  // base transforms (parallax)
+  const x = useTransform(scrollYProgress, [0, 0.5], [distanceFromCenter * 90, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 0.5], [distanceFromCenter * 18, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.5], [-Math.abs(distanceFromCenter) * 8, 0]);
+  const baseScale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
 
-  const y = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    [-Math.abs(distanceFromCenter) * 20, 0],
-  );
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.75, 1]);
+  // hover state
+  const [hovered, setHovered] = useState(false);
+
+  // extract label from filename (e.g. "/mac/Discord.png" -> "Discord")
+  const label = (char || "")
+    .split("/")
+    .pop()
+    ?.replace(/\.\w+$/, "")
+    .replace(/[-_]/g, " ") || "";
 
   return (
-    <motion.img
-      src={char}
-      className={cn("inline-block", isSpace && "w-4")}
-      style={{
-       x,
-        rotate,
-        y,
-        scale,
-        transformOrigin: "center",
-      }}
-    />
+    <motion.div
+      className={cn("inline-block relative px-3 select-none")}
+      style={{ x, rotate, y, scale: baseScale, transformOrigin: "center" } as any}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+    >
+      {/* Icon image */}
+      <motion.img
+        src={char}
+        alt={label}
+        className={cn(
+          "block rounded-lg",
+          isSpace ? "w-8 h-8" : "w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16"
+        )}
+        style={{ willChange: "transform" }}
+        animate={{
+          scaleX: 1, // ✅ left-right same
+          scaleY: hovered ? 0.7 : 1, // ✅ squeeze sab icons ke liye
+          filter: hovered ? "drop-shadow(0 6px 18px rgba(0,0,0,0.45))" : "none",
+        }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      />
+
+      {/* Label that appears when hovered */}
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2 top-full mt-3 pointer-events-none"
+        initial={{ opacity: 0, y: -6, scale: 0.9 }}
+        animate={
+          hovered
+            ? { opacity: 1, y: 0, scale: 1 }
+            : { opacity: 0, y: -6, scale: 0.9 }
+        }
+        transition={{ duration: 0.18 }}
+      >
+        <div className="bg-black/85 text-white text-xs sm:text-sm px-3 py-1 rounded-md whitespace-nowrap shadow-md">
+          {label}
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
-
 
 const Skiper31 = () => {
   const targetRef2 = useRef<HTMLDivElement | null>(null);
 
-
   const { scrollYProgress: scrollYProgress2 } = useScroll({
     target: targetRef2,
   });
-
 
   const macIcon = [
     "/mac/Discord.png",
@@ -87,12 +110,15 @@ const Skiper31 = () => {
           ref={targetRef2}
           className="relative box-border flex h-[210vh] flex-col items-center justify-center gap-[2vw] overflow-hidden p-[2vw]"
         >
-          <p className="font-geist flex items-center justify-center gap-3 text-2xl font-medium tracking-tight ">
-            <Bracket className="h-12 " />
-            <span className="font-geist font-medium">Fav Tech Stack</span>
-            <Bracket className="h-12 scale-x-[-1]" />
+          {/* Heading */}
+          <p className="font-geist flex items-center justify-center gap-3 text-2xl font-medium tracking-tight z-10">
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-8 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent drop-shadow-md">
+              My Tech Stack
+            </span>
           </p>
-          <div className="font-geist w-full max-w-4xl text-center text-6xl font-bold uppercase tracking-tighter">
+
+          {/* Icon Container */}
+          <div className="flex items-center justify-center gap-4 md:gap-6 flex-wrap">
             {macIcon.map((char, index) => (
               <CharacterV2
                 key={index}
@@ -104,28 +130,9 @@ const Skiper31 = () => {
             ))}
           </div>
         </div>
-
-          
-
       </main>
     </ReactLenis>
   );
 };
 
 export { CharacterV2, Skiper31 };
-
-const Bracket = ({ className }: { className: string }) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 27 78"
-      className={className}
-    >
-      <path
-        fill="#000"
-        d="M26.52 77.21h-5.75c-6.83 0-12.38-5.56-12.38-12.38V48.38C8.39 43.76 4.63 40 .01 40v-4c4.62 0 8.38-3.76 8.38-8.38V12.4C8.38 5.56 13.94 0 20.77 0h5.75v4h-5.75c-4.62 0-8.38 3.76-8.38 8.38V27.6c0 4.34-2.25 8.17-5.64 10.38 3.39 2.21 5.64 6.04 5.64 10.38v16.45c0 4.62 3.76 8.38 8.38 8.38h5.75v4.02Z"
-      ></path>
-    </svg>
-  );
-};

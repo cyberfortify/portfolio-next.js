@@ -34,9 +34,9 @@ export default function ProjectsSection() {
   useEffect(() => {
     const total = projects.length;
     // --- tweak yaha se offsets & scale agar tumko alag look chahiye ---
-    const peekX = 36; // each stacked card shifts this many px to right
-    const peekY = 28; // each stacked card shifts this many px upward (negative Y)
-    const peekScaleBase = 0.88; // front-most peek card scale (smaller overall)
+    const peekX = 10; // each stacked card shifts this many px to right
+    const peekY = 10; // each stacked card shifts this many px upward (negative Y)
+    const peekScaleBase = 0.50; // front-most peek card scale (smaller overall)
     const scaleStep = 0.03; // how much each deeper card shrinks
     // -------------------------------------------------------------------
 
@@ -63,8 +63,8 @@ export default function ProjectsSection() {
       // animate from slightly above-right into center for a 'coming down' effect
       gsap.fromTo(
         activeEl,
-        { x: 200, y: -200, scale: 0.9, opacity: 0, zIndex: 400 },
-        { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "power3.out", zIndex: 400 }
+        { x: 0, y: "-100%", scale: 0.95, opacity: 0, zIndex: 400 },
+        { x: 0, y: 0, scale: 1, opacity: 1, duration: 1, ease: "expo.out", zIndex: 400 }
       );
     }
 
@@ -72,16 +72,16 @@ export default function ProjectsSection() {
     cardRefs.current.forEach((c, i) => {
       if (!c || i === activeIndex) return;
       const { x, y, scale, z } = transforms[i];
-      gsap.to(c, { x, y, scale, opacity: 0.85, zIndex: z, duration: 0.6, ease: "power3.out" });
+      gsap.to(c, { x, y, scale, opacity: 0.85, zIndex: z, duration: 0.8, ease: "power4.inOut" });
     });
   }, [activeIndex]);
 
   return (
-    <section className="flex flex-col md:flex-row justify-center items-stretch mt-8 px-4 sm:px-6 md:px-20 py-12 md:py-20 gap-10">
+    <section className="flex flex-col md:flex-row justify-center items-stretch mt-12 px-4 sm:px-6 md:px-20 py-12 md:py-20 gap-10">
       {/* LEFT SIDE */}
       <div className="w-full md:w-[70%] flex flex-col gap-6">
         {/* Card stack */}
-        <div className="relative w-full aspect-[16/9] sm:aspect-[4/3] md:aspect-[16/9]">
+        <div className="relative w-[90%] sm:w-[90%] md:w-[90%] lg:w-[90%] mx-auto h-[300px] sm:h-[300px] md:h-[300px] lg:h-[300px]">
           {projects.map((project, index) => (
             <div
               key={index}
@@ -98,11 +98,10 @@ export default function ProjectsSection() {
               />
             </div>
           ))}
-
         </div>
 
         {/* Description */}
-        <div className="mt-6 p-4 sm:p-6 rounded-xl text-sm sm:text-base md:text-lg leading-relaxed bg-white/5 backdrop-blur-md shadow-md">
+        <div className="p-4 sm:p-6 rounded-xl text-sm sm:text-base md:text-lg leading-relaxed bg-white/5 backdrop-blur-md shadow-md">
           <p className="text-gray-500">
             {projects[activeIndex].description}{" "}
             <a

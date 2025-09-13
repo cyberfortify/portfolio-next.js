@@ -17,6 +17,7 @@ export default function HomePage() {
   const [showHero, setShowHero] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
+
   return (
     <>
       {/* Preloader */}
@@ -32,6 +33,8 @@ export default function HomePage() {
           <ProjectsSection />
           <Skiper31 />
           {/* <SkillsStack /> */}
+
+
           <ContactSection />
 
           {/* Floating Buttons (appear only after preloader) */}

@@ -77,12 +77,11 @@ export default function AboutPage() {
           "
         >
           <img
-            src="/images/p1.jpg"
+            src="/images/aboutSection1.jpg"
             alt="Profile"
             className="object-cover w-full h-full dark:grayscale"
           />
         </motion.div>
-
         {/* Center column: About, Skills+Time */}
         <div className="flex flex-col gap-4 order-2 lg:order-none">
           {/* About */}

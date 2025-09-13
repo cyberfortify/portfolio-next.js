@@ -9,7 +9,7 @@ const navigationItems = [
   { name: "Home", href: "/", description: "[0]" },
   { name: "About", href: "/about", description: "[1]" },
   { name: "Projects", href: "/project", description: "[2]" },
-  { name: "Contact", href: "/ContactSection", description: "[3]" },
+  { name: "Certificates", href: "/Certificates", description: "[3]" },
 ];
 
 type Skiper58Props = {

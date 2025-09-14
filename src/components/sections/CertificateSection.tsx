@@ -38,8 +38,9 @@ const CertificateSection = () => {
 
       {/* Dark mode subtitle / description */}
       <p className="text-center text-sm md:text-base text-gray-500 dark:text-gray-300 mb-12 px-6">
-        Here are some of the certifications I've earned through dedication and hard work. Explore my journey in full stack development, Python, data analysis, and cloud computing.
+        Here are some of the certifications I&apos;ve earned through dedication and hard work. Explore my journey in full stack development, Python, data analysis, and cloud computing.
       </p>
+
 
       {/* Carousel */}
       <div className="max-w-5xl mx-auto flex justify-center px-4">

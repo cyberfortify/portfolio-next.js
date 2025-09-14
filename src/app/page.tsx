@@ -12,6 +12,7 @@ import ContactSection from "@/components/sections/ContactSection";
 import FloatingMenuButton from "@/components/layout/FloatingNavButton";
 import BottomNavigation from "@/components/layout/BottomNavigation";
 import ContactModal from "@/components/layout/ContactModal";
+import CertificateSection from "@/components/sections/CertificateSection";
 
 export default function HomePage() {
   const [showHero, setShowHero] = useState(false);
@@ -31,6 +32,7 @@ export default function HomePage() {
           <HeroIntro onOpenContact={() => setIsContactOpen(true)} />
           <AboutSection />
           <ProjectsSection />
+          <CertificateSection />
           <Skiper31 />
           {/* <SkillsStack /> */}
 

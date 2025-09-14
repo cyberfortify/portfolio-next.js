@@ -44,7 +44,7 @@ export default function WelcomeFlicker({ onComplete }: { onComplete: () => void 
         <AnimatePresence mode="wait">
           <motion.h1
             key={greetings[index]}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wide text-center"
+            className="text-4xl sm:text-8xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wide text-center"
             initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -54,7 +54,7 @@ export default function WelcomeFlicker({ onComplete }: { onComplete: () => void 
           </motion.h1>
         </AnimatePresence>
       ) : (
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wide text-center">
+        <h1 className="text-4xl sm:text-8xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wide text-center">
           {greetings[index]}
         </h1>
       )}
